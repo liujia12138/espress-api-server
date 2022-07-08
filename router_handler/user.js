@@ -28,11 +28,11 @@ exports.registerUser = (req, res) => {
   const sql = 'select * from ev_users where username=?'
   db.query(sql, [userinfo.username], (err, results) => {
     // sql语句执行失败
-    if (err) return res.send({ status: 1, msg: err.message })
+    if (err) return res.cc(err.message)
 
     // 用户名被占用
     if (results.length > 0) {
-      return res.send({ status: 1, msg: '用户名被占用，请更换一个用户名' })
+      return res.cc('用户名被占用，请更换一个用户名')
     }
 
     // 用户名可用
@@ -44,12 +44,12 @@ exports.registerUser = (req, res) => {
     const sql = 'insert into ev_users set ?'
     db.query(sql, { username: userinfo.username, password: pwd }, (err, results) => {
       // err
-      if (err) return res.send({ status: 1, msg: err.message })
+      if (err) return res.cc(err.message)
 
       // 插入失败
-      if(results.affectedRows !== 1) return res.send({status:1, msg:'注册失败，请稍后再试'})
+      if (results.affectedRows !== 1) return res.cc('注册失败，请稍后再试')
 
-      res.send({status: 0, msg: '注册成功'})
+      res.cc('注册成功', 0)
     })
   })
 }
