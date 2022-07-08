@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const joi = require('@hapi/joi')
 
 const app = express()
 app.use(cors())
@@ -24,6 +25,18 @@ app.use((req, res, next) => {
 // 导入并使用用户路由模块
 const userRouter = require('./router/user')
 app.use('/api', userRouter)
+
+// 获取参数验证错误
+// 在路由之后定义错误级别的中间件
+app.use((err,req, res, next)=>{
+  // 验证失败的错误
+  if(err instanceof joi.ValidationError) res.cc(err.message)
+
+  // 其他未知的错误
+  res.cc(err)
+
+  next()
+})
 
 app.listen(3007, () => {
   console.log('api server is running at http://127.0.0.1:3007')
