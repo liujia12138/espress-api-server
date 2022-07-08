@@ -16,13 +16,14 @@ exports.registerUser = (req, res) => {
   // 接收数据
   const userinfo = req.body
   console.log(userinfo)
-  // 1.检测数据的合法性
-  if (!userinfo.username || !userinfo.password) {
-    return res.send({
-      status: 1,
-      msg: '用户名或密码不能为空'
-    })
-  }
+  // // 1.检测数据的合法性------用joi代替1中的检测步骤
+  // if (!userinfo.username || !userinfo.password) {
+  //   return res.send({
+  //     status: 1,
+  //     msg: '用户名或密码不能为空'
+  //   })
+  // }
+  //
 
   // 2.检测用户名是否被占用
   const sql = 'select * from ev_users where username=?'
@@ -54,6 +55,23 @@ exports.registerUser = (req, res) => {
   })
 }
 
+// 登录
+// 1.检测表单数据是否合法
+// 2.根据用户名查询用户的数据
+// 3.判断用户输入的密码是否正确
+// 4.生成JWT的token字符串
 exports.userLogin = (req, res) => {
+  const userinfo = req.body
+  const sql = 'select * from ev_users where username = ?'
+  // 2.
+  db.query(sql, userinfo.username, (err, results) => {
+    if (err) return res.cc(err)
+
+    if (results.length <= 0) return res.cc('用户不存在，请先注册')
+
+    // 3.检测密码
+    
+  })
+
   res.send('登录成功')
 }
