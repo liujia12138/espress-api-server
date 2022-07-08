@@ -70,6 +70,11 @@ exports.userLogin = (req, res) => {
     if (results.length <= 0) return res.cc('用户不存在，请先注册')
 
     // 3.检测密码
+    const compareResult = bcrypt.compareSync(userinfo.password, results[0].password)
+    if(!compareResult) return res.cc('密码不正确')
+
+    // 4.生成token
+    // const user = {results[0].username}
     res.send('登录成功')
   })
 }
