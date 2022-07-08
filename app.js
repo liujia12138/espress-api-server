@@ -7,6 +7,7 @@ app.use(cors())
 // 解析x-www-form-urlencoded格式的表单数据
 app.use(express.urlencoded({ extended: false }))
 
+// 自定义中间件
 // 优化res.send
 // 一定要在路由注册之前
 app.use((req, res, next) => {
