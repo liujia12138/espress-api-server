@@ -36,7 +36,7 @@ exports.registerUser = (req, res) => {
     }
 
     // 用户名可用
-    // 3.密码加密，调用bcrypt.hashSync(明文密码, 随机盐的长度)
+    // 3.密码加密，调用bcrypt.hashSync(明文密码, 随机言的长度)
     const pwd = bcrypt.hashSync(userinfo.password, 10)
     console.log(pwd)
 
