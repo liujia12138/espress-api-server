@@ -70,8 +70,6 @@ exports.userLogin = (req, res) => {
     if (results.length <= 0) return res.cc('用户不存在，请先注册')
 
     // 3.检测密码
-    
+    res.send('登录成功')
   })
-
-  res.send('登录成功')
 }
