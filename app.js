@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const joi = require('@hapi/joi')
+const joi = require('joi')
 
 const app = express()
 app.use(cors())

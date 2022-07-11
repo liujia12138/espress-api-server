@@ -6,6 +6,11 @@ const db = require('../db')
 // 导入加密模块
 const bcrypt = require('bcryptjs')
 
+// 导入生成token的包
+const jwt = require('jsonwebtoken')
+// 导入全局配置
+const config = require('../config')
+
 // 注册
 // 步骤
 // 1.检测表单提交的数据是否合法
@@ -70,11 +75,21 @@ exports.userLogin = (req, res) => {
     if (results.length <= 0) return res.cc('用户不存在，请先注册')
 
     // 3.检测密码
+    // 使用bcrypt.compareSync 接受两个参数，第一个参数是当前输入的密码，第二个参数是数据库里存的加密后的密码
+    // 返回值是一个布尔值，true表示检测通过，false表示检测失败
     const compareResult = bcrypt.compareSync(userinfo.password, results[0].password)
-    if(!compareResult) return res.cc('密码不正确')
+    // 3.1 检测不通过
+    if (!compareResult) return res.cc('登录失败，密码不正确')
 
     // 4.生成token
-    // const user = {results[0].username}
-    res.send('登录成功')
+    // 因为token是保存在客户端的，所以在生成token的时候，一定要剔除密码和头像的值
+    const user = { ...results[0], password: null, user_pic: null }
+    // 生成token字符串
+    const tokenStr = jwt.sign(user, config.secretKey, { expiresIn: '10h', })
+    res.send({
+      status: 0,
+      msg: '登录成功',
+      token: 'Bearer ' + tokenStr
+    })
   })
 }
