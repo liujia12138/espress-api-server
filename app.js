@@ -32,6 +32,11 @@ app.use(expressjwt({ secret: config.secretKey, algorithms: ['HS256'] }).unless({
 const userRouter = require('./router/user')
 app.use('/api', userRouter)
 
+// 导入并使用获取用户基本信息的路由模块
+const userinfoRouter = require('./router/userinfo')
+app.use('/my', userinfoRouter)
+
+
 // 获取参数验证错误
 // 在路由之后定义错误级别的中间件
 app.use((err, req, res, next) => {
