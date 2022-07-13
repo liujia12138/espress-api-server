@@ -38,3 +38,10 @@ exports.reset_password_schema = {
     newPwd: joi.not(joi.ref('oldPwd')).concat(password) //新密码和旧密码的校验规则保持一致 且 不可以和旧密码相同
   }
 }
+
+// 定义avatar头像表单校验规则
+exports.update_avatar_schema = {
+  body:{
+    avatar: joi.string().dataUri().required()
+  }
+}

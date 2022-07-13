@@ -62,12 +62,27 @@ exports.resetPassword = (req, res) => {
     const sql = 'update ev_users set password=? where id=?'
     // 加密密码
     const bcryptNewPwd = bcrypt.hashSync(newPwd, 10)
-    db.query(sql, bcryptNewPwd, req.auth.id, (err, results) => {
+    db.query(sql, [bcryptNewPwd, req.auth.id], (err, results) => {
       if (err) return res.cc(err.message)
 
       if (results.affectedRows !== 1) return res.cc('重置密码失败')
 
-      res.send('重置成功', 0)
+      res.cc('重置成功', 0)
+    })
+  })
+}
+
+// 更换用户头像
+exports.updateAvatar = (req, res) => {
+  const sql = 'update ev_users set user_pic=? where id=?'
+  db.query(sql, [req.body.avatar, req.auth.id], (err, results) => {
+    if (err) return res.cc(err)
+
+    if (results.affectedRows !== 1) return res.cc('更换头像失败')
+
+    return res.send({
+      status: 0,
+      msg: '更换头像成功'
     })
   })
 }

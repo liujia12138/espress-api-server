@@ -16,7 +16,7 @@ app.use((req, res, next) => {
   res.cc = (err, status = 1) => {
     res.send({
       status,
-      message: err instanceof Error ? err.message : err
+      msg: err instanceof Error ? err.message : err
     })
   }
   next()
@@ -35,6 +35,10 @@ app.use('/api', userRouter)
 // 导入并使用获取用户基本信息的路由模块
 const userinfoRouter = require('./router/userinfo')
 app.use('/my', userinfoRouter)
+
+// 导入并使用文章分类接口
+const articleCateRouter = require('./router/artcate')
+app.use('/article', articleCateRouter)
 
 
 // 获取参数验证错误
