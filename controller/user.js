@@ -4,7 +4,7 @@ const express = require('express')
 const router = express.Router()
 
 // 导入路由处理函数
-const userRouterHandler = require('../router_handler/user')
+const userRouterHandler = require('../service/user')
 
 // 1.导入验证数据的中间件
 const expressJoi = require('@escook/express-joi')

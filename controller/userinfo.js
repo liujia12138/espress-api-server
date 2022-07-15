@@ -6,7 +6,7 @@ const { update_userinfo_schema, reset_password_schema, update_avatar_schema } = 
 const router = express.Router()
 
 // 导入路由处理函数
-const { getUserInfo, updateUserinfo, resetPassword, updateAvatar } = require('../router_handler/userinfo')
+const { getUserInfo, updateUserinfo, resetPassword, updateAvatar } = require('../service/userinfo')
 
 // 挂载路由
 

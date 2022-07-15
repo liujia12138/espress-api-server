@@ -6,3 +6,9 @@ exports.add_cate_schema = {
     alias: joi.string().required().alphanum()
   }
 }
+
+exports.delete_cate_schema = {
+  params:{
+    id: joi.number().integer().min(1).required()
+  }
+}

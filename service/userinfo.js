@@ -1,5 +1,5 @@
 const db = require('../db')
-const router = require('../router/user')
+const router = require('../controller/user')
 // 导入加密模块
 const bcrypt = require('bcryptjs')
 

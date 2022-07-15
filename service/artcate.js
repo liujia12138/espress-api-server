@@ -41,3 +41,19 @@ exports.addArticleCate = (req, res) => {
     })
   })
 }
+
+// 根据id删除文章分类
+exports.deleteArticleCateById = (req, res)=>{
+  const id = req.params.id
+  const sql = 'update ev_article_cate set is_delete=1 where id=?'
+  db.query(sql, id, (err, results)=>{
+    if(err) return res.cc(err)
+
+    if(results.affectedRows !== 1) return res.cc('删除失败')
+
+    res.send({
+      status: 0,
+      msg: 'success'
+    })
+  })
+}
