@@ -2,35 +2,6 @@ const express = require('express')
 const cors = require('cors')
 const joi = require('joi')
 
-// swagger
-const expressSwagger = require('express-swagger-generator')
-
-
-let options = {
-  swaggerDefinition: {
-    info: {
-      description: 'This is a sample server',
-      title: 'Swagger',
-      version: '1.0.0'
-    },
-    host: 'localhost:3007',
-    basePath: '/v1',
-    produces: ['application/json', 'application/xml'],
-    schemes: ['http', 'https'],
-    securityDefinitions: {
-      JWT: {
-        type: 'apiKey',
-        in: 'header',
-        name: 'Authorization',
-        description: ''
-      }
-    }
-  },
-  basedir: __dirname, //app absolute path
-  files: ['./controller/*.js'] //Path to the API handle folder
-}
-expressSwagger(options)
-
 const app = express()
 
 // cors处理跨域
@@ -64,6 +35,7 @@ app.use('/my', userinfoRouter)
 const articleCateRouter = require('./controller/artcate')
 app.use('/article', articleCateRouter)
 
+app.use('login.html', express.static('./public/dist/view'))
 
 // 获取参数验证错误
 // 在路由之后定义错误级别的中间件
