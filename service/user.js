@@ -89,6 +89,7 @@ exports.userLogin = (req, res) => {
     res.send({
       status: 0,
       msg: '登录成功',
+      // 最好不要直接把Bearer拼接起来直接发给客户端
       token: 'Bearer ' + tokenStr
     })
   })
